@@ -44,10 +44,10 @@ export default function ControleDeGastosScreen({ navigation }) {
         setLoadingData(true);
         
         // Buscar vendas
-        const responseVendas = await api.get('/vendas');
+        const responseVendas = await api.get('/api/vendas');
         
         // Buscar despesas
-        const responseDespesas = await api.get('/despesas');
+        const responseDespesas = await api.get('/api/despesas');
         
         // Filtrar vendas do mês/ano selecionado
         const vendasDoMes = responseVendas.data.filter(venda => {

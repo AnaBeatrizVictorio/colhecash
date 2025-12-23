@@ -1,0 +1,35 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Usuário Teste",
+      "email": "teste@email.com",
+      "senha": "123456"
+    }
+  ],
+  "vendas": [
+    {
+      "id": 1,
+      "descricao": "Venda de teste",
+      "valor": 100.50,
+      "data": "2025-01-15",
+      "categoria": "Produto",
+      "usuarioId": 1
+    }
+  ],
+  "despesas": [
+    {
+      "id": 1,
+      "descricao": "Despesa de teste",
+      "valor": 50.00,
+      "data": "2025-01-10",
+      "categoria": "Material",
+      "usuarioId": 1
+    }
+  ],
+  "configuracoes": {
+    "id": 1,
+    "metaFaturamento": 5000,
+    "usuarioId": 1
+  }
+}

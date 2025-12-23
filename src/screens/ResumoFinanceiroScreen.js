@@ -29,10 +29,13 @@ export default function ResumoFinanceiroScreen({ route }) {
       try {
         setLoadingData(true);
         let fetchedTransactions = [];
+        // Limites do mês selecionado (previne problemas de fuso horário)
+        const monthStart = new Date(selectedYear, selectedMonth - 1, 1);
+        const monthEnd = new Date(selectedYear, selectedMonth, 1);
 
         if (filter === 'receitas') {
           // Buscar vendas
-          const responseVendas = await api.get('/vendas');
+          const responseVendas = await api.get('/api/vendas');
           console.log('Vendas recebidas:', responseVendas.data);
           
           if (!responseVendas.data || !Array.isArray(responseVendas.data)) {
@@ -41,15 +44,14 @@ export default function ResumoFinanceiroScreen({ route }) {
             return;
           }
           
-          // Filtrar vendas do mês/ano selecionado
+          // Filtrar vendas por intervalo do mês (inclusive início, exclusivo fim)
           const vendasDoMes = responseVendas.data.filter(venda => {
             if (!venda.data) {
               console.error('Venda sem data:', venda);
               return false;
             }
             const dataVenda = new Date(venda.data);
-            console.log('Data da venda:', dataVenda, 'Mês selecionado:', selectedMonth - 1, 'Ano selecionado:', selectedYear);
-            return dataVenda.getMonth() === selectedMonth - 1 && dataVenda.getFullYear() === selectedYear;
+            return dataVenda >= monthStart && dataVenda < monthEnd;
           });
           console.log('Vendas do mês:', vendasDoMes);
 
@@ -68,7 +70,7 @@ export default function ResumoFinanceiroScreen({ route }) {
 
         } else if (filter === 'despesas') {
           // Buscar despesas
-          const responseDespesas = await api.get('/despesas');
+          const responseDespesas = await api.get('/api/despesas');
           console.log('Despesas recebidas:', responseDespesas.data);
           
           if (!responseDespesas.data || !Array.isArray(responseDespesas.data)) {
@@ -77,15 +79,14 @@ export default function ResumoFinanceiroScreen({ route }) {
             return;
           }
           
-          // Filtrar despesas do mês/ano selecionado
+          // Filtrar despesas por intervalo do mês
           const despesasDoMes = responseDespesas.data.filter(despesa => {
             if (!despesa.data) {
               console.error('Despesa sem data:', despesa);
               return false;
             }
             const dataDespesa = new Date(despesa.data);
-            console.log('Data da despesa:', dataDespesa, 'Mês selecionado:', selectedMonth - 1, 'Ano selecionado:', selectedYear);
-            return dataDespesa.getMonth() === selectedMonth - 1 && dataDespesa.getFullYear() === selectedYear;
+            return dataDespesa >= monthStart && dataDespesa < monthEnd;
           });
           console.log('Despesas do mês:', despesasDoMes);
 
@@ -104,22 +105,22 @@ export default function ResumoFinanceiroScreen({ route }) {
         } else {
           // Se não houver filtro, buscar tanto vendas quanto despesas
           const [responseVendas, responseDespesas] = await Promise.all([
-            api.get('/vendas'),
-            api.get('/despesas')
+            api.get('/api/vendas'),
+            api.get('/api/despesas')
           ]);
 
           // Processar vendas
           const vendasDoMes = responseVendas.data.filter(venda => {
             if (!venda.data) return false;
             const dataVenda = new Date(venda.data);
-            return dataVenda.getMonth() === selectedMonth - 1 && dataVenda.getFullYear() === selectedYear;
+            return dataVenda >= monthStart && dataVenda < monthEnd;
           });
 
           // Processar despesas
           const despesasDoMes = responseDespesas.data.filter(despesa => {
             if (!despesa.data) return false;
             const dataDespesa = new Date(despesa.data);
-            return dataDespesa.getMonth() === selectedMonth - 1 && dataDespesa.getFullYear() === selectedYear;
+            return dataDespesa >= monthStart && dataDespesa < monthEnd;
           });
 
           // Combinar e formatar todas as transações

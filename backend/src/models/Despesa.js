@@ -1,29 +1,11 @@
-import mongoose from 'mongoose';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database');
 
-const DespesaSchema = new mongoose.Schema({
-  usuario: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  valor: {
-    type: Number,
-    required: true
-  },
-  data: {
-    type: Date,
-    default: Date.now
-  },
-  descricao: { 
-    type: String,
-    required: false 
-  },
-  categoria: { 
-    type: String,
-    required: false 
-  }
+const Despesa = sequelize.define('Despesa', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  valor: { type: DataTypes.FLOAT, allowNull: false },
+  data: { type: DataTypes.DATE, allowNull: false },
+  descricao: { type: DataTypes.STRING }
 });
 
-const Despesa = mongoose.model('Despesa', DespesaSchema);
-
-export default Despesa; 
+module.exports = Despesa;

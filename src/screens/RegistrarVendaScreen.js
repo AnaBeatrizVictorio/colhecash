@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, Modal, FlatList, A
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import api from '../services/api';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 // const categorias = [
 //   'VENDA PRODUTOS',
@@ -19,6 +20,8 @@ export default function RegistrarVendaScreen() {
   const [valor, setValor] = useState('');
   const [showCategoria, setShowCategoria] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [dataVenda, setDataVenda] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   // Estados para dados que virão do backend
   const [categorias, setCategorias] = useState([]);
@@ -87,13 +90,11 @@ export default function RegistrarVendaScreen() {
     try {
       setSaving(true);
       // Envia os dados da venda para o backend
-      // Nota: O backend espera 'valor' (Number) e opcionalmente 'data' (Date).
-      // A descrição e categoria não estão no modelo Venda atual.
-      const response = await api.post('/vendas', {
+      const response = await api.post('/api/vendas', {
         valor: valorNumerico,
-        data: new Date(), // Envia a data atual
-        descricao: descricao, // Envia a descricao
-        categoria: categoria, // Envia a categoria
+        data: dataVenda, // Usa a data escolhida
+        descricao: descricao,
+        categoria: categoria,
       });
 
       console.log('Venda salva com sucesso:', response.data);
@@ -138,6 +139,22 @@ export default function RegistrarVendaScreen() {
             )}
           </TouchableOpacity>
         </View>
+        {/* Seletor de Data */}
+        <TouchableOpacity style={[styles.input, {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}]} onPress={() => setShowDatePicker(true)}>
+          <Text style={{color: '#fff'}}>{dataVenda.toLocaleDateString('pt-BR')}</Text>
+          <Ionicons name="calendar" size={20} color="#fff" />
+        </TouchableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={dataVenda}
+            mode="date"
+            display="default"
+            onChange={(event, selectedDate) => {
+              setShowDatePicker(false);
+              if (selectedDate) setDataVenda(selectedDate);
+            }}
+          />
+        )}
         <TextInput
           style={styles.input}
           placeholder="Descrição"

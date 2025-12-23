@@ -1,11 +1,11 @@
 {
-  "name": "colhecash-backend",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Backend do aplicativo ColheCash",
-  "main": "src/app.js",
+  "description": "Backend do ColheCash",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,12 +13,11 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.3"
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.0.1"
   }
-} 
+}

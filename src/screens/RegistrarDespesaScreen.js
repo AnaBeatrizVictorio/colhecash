@@ -90,7 +90,7 @@ export default function RegistrarDespesaScreen() {
       setSaving(true);
       // Envia os dados da despesa para o backend
       // A rota no backend espera valor, data, descricao e categoria
-      const response = await api.post('/despesas', { // Rota /despesas no backend
+      const response = await api.post('/api/despesas', { // Rota /despesas no backend
         valor: valorNumerico,
         data: new Date(), // Envia a data atual
         descricao: descricao,

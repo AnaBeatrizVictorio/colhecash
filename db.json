@@ -1,0 +1,75 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Usuário Teste",
+      "email": "teste@colhecash.com",
+      "senha": "123456",
+      "telefone": "(00) 00000-0000",
+      "dataCadastro": "2025-01-01T00:00:00.000Z"
+    }
+  ],
+  "vendas": [
+    {
+      "id": 1,
+      "descricao": "Venda de produtos",
+      "valor": 150.00,
+      "data": "2025-11-15T10:30:00.000Z",
+      "categoria": "Vendas",
+      "usuarioId": 1
+    },
+    {
+      "id": 2,
+      "descricao": "Venda na feira",
+      "valor": 320.50,
+      "data": "2025-11-20T14:20:00.000Z",
+      "categoria": "Vendas",
+      "usuarioId": 1
+    }
+  ],
+  "despesas": [
+    {
+      "id": 1,
+      "descricao": "Compra de insumos",
+      "valor": 80.00,
+      "data": "2025-11-10T08:00:00.000Z",
+      "categoria": "Insumos",
+      "usuarioId": 1
+    },
+    {
+      "id": 2,
+      "descricao": "Transporte",
+      "valor": 45.00,
+      "data": "2025-11-18T07:30:00.000Z",
+      "categoria": "Transporte",
+      "usuarioId": 1
+    },
+    {
+      "id": 3,
+      "descricao": "Aluguel do espaço",
+      "valor": 200.00,
+      "data": "2025-11-05T00:00:00.000Z",
+      "categoria": "Aluguel",
+      "usuarioId": 1
+    }
+  ],
+  "configuracoes": [
+    {
+      "id": 1,
+      "metaFaturamento": 5000.00,
+      "moeda": "BRL",
+      "notificacoesAtivas": true,
+      "temaEscuro": true
+    }
+  ],
+  "categoriasDespesas": [
+    "Insumos",
+    "Transporte",
+    "Aluguel",
+    "Equipamentos",
+    "Marketing",
+    "Impostos",
+    "Outros"
+  ],
+  "categoriasVendas": ["Vendas", "Serviços", "Outros"]
+}
