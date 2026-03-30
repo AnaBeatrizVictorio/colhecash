@@ -144,3 +144,29 @@ O sistema segue o modelo **cliente-servidor**, garantindo:
 
 
 
+ ⚙️ Como Rodar o Projeto
+
+```bash
+# Clone o repositório
+git clone https://github.com/AnaBeatrizVictorio/colhecash.git
+
+# Acesse a pasta
+cd colhecash
+
+# Instale as dependências
+npm install
+
+# Inicie o projeto
+npx expo start
+📂 Estrutura do Projeto
+colhecash/
+├── src/
+│   ├── components/
+│   ├── screens/
+│   ├── services/
+│   ├── utils/
+├── assets/
+├── App.js
+
+
+
